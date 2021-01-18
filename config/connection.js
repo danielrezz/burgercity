@@ -1,4 +1,4 @@
-let mysql = require("mysql");
+let mysql = require("mysql2");
 
 let connection = mysql.createConnection({
 
@@ -14,7 +14,7 @@ connection.connect(function(err) {
         console.error("error connecting: " + err.stack);
         return;
     }
-    console.log("connected as id " + connection.threadID);
+    console.log("connected as id " + connection.threadId);
 });
 
 module.exports = connection;

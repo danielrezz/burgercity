@@ -1,7 +1,7 @@
 const express = require("express");
 const orm = require("../config/orm.js");
 
-let burgerModel = {
+let burger = {
     all: async function() {
 
         const results = await orm.selectAll("burgers");
@@ -24,4 +24,4 @@ let burgerModel = {
     }
 };
 
-module.exports = burgerModel;
+module.exports = burger;
