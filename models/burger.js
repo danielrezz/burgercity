@@ -2,25 +2,22 @@ const express = require("express");
 const orm = require("../config/orm.js");
 
 let burger = {
-    all: async function() {
-
-        const results = await orm.selectAll("burgers");
-        
-        return results;
+    all: function(cb) {
+        orm.all("burgers", function(res) {
+            cb(res);
+        });
     },
 
-    create: async function(cols, vals, cb) {
-
-        const results = await orm.insertOne("burgers", cols, vals);
-
-        return results;
+    create: function(cols, vals, cb) {
+        orm.create("burgers", cols, vals, function(res) {
+            cb(res);
+        });
     },
 
-    update: async function(objColVals, condition, cb) {
-
-        const results = await orm.updateOne("burgers", objColVals, condition);
-
-       return results;
+    update: function(objColVals, condition, cb) {
+        orm.update("burgers", objColVals, condition, function(res) {
+            cb(res);
+        });
     }
 };
 
