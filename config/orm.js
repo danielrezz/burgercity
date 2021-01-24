@@ -28,41 +28,46 @@ function objToSql(ob) {
 };
 
 let orm = {
-    selectAll: async function (tableName) {
+    selectAll: function (tableName, cb) {
+
         let SQL_STATEMENT = `SELECT * FROM ${tableName}`;
 
-        try {
-            const [rows, fields] = await connection.promise().query(SQL_STATEMENT, tableName);
-            return rows;
-        } catch (error) {
-            console.log(error);
-        }
+        connection.query(SQL_STATEMENT, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            cb(result);
+        });
     },
 
-    insertOne: async function (tableName, columnNames, vals) {
+    insertOne: function (tableName, columnNames, vals, cb) {
         let SQL_STATEMENT = `INSERT INTO ${tableName} (${columnNames.toString()})
                             VALUES (${printQuestionMarks(vals.length)})`;
 
-        try {
-            const [rows, fields] = await connection.promise().query(SQL_STATEMENT, [tableName, columnNames, vals]);
-            return rows;
-        } catch (error) {
-            console.log(error);
-        }
+        console.log(SQL_STATEMENT);
+
+        connection.query(SQL_STATEMENT, vals, function(err, result) {
+            if (err) {
+                throw err;
+            }
+
+            cb(result);
+        });
 
     },
 
-    updateOne: async function (tableName, objColVals, condition) {
+    updateOne: function (tableName, objColVals, condition, cb) {
         let SQL_STATEMENT = `UPDATE ${tableName}
                             SET ${objToSql(objColVals)}
                             WHERE ${condition}`;
 
-        try {
-            const [rows, fields] = await connection.promise().query(SQL_STATEMENT, [tableName, objColVals, condition]);
-            return rows;
-        } catch (error) {
-            console.log(error);
-        }
+        console.log(SQL_STATEMENT);
+        connection.query(SQL_STATEMENT, function(err, result) {
+            if (err) {
+                throw err;
+            }
+            cb(result);
+        });
     }
 };
 

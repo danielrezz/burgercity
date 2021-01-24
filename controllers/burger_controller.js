@@ -6,16 +6,20 @@ const router = express.Router();
 
 router.get("/", async function(req, res) {
 
+    // let hbsObject = {burgers: data};
 
-    const result = await burger.all(data)
+    const result = await burger.all();
 
+    return result;
+
+    // res.render("index", hbsObject);
 
 });
 
 // router.get("/", function(req, res) {
-//     cat.all(function(data) {
+//     burger.all(function(data) {
 //       var hbsObject = {
-//         cats: data
+//         burgers: data
 //       };
 //       console.log(hbsObject);
 //       res.render("index", hbsObject);
