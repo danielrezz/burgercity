@@ -1,6 +1,10 @@
 let mysql = require("mysql2");
 
-let connection = mysql.createConnection({
+if (process.env.JAWSDB_URL) {
+    connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+
+    connection = mysql.createConnection({
 
     host: "localhost",
     port: 3306,
@@ -8,6 +12,7 @@ let connection = mysql.createConnection({
     password: "drum1007",
     database: "burgers_db"
 });
+};
 
 connection.connect(function(err) {
     if (err) {
