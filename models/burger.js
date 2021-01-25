@@ -16,10 +16,16 @@ let burger = {
     },
 
     update: function(objColVals, condition, cb) {
-        orm.update("burgers", objColVals, condition, function(res) {
+        orm.updateOne("burgers", objColVals, condition, function(res) {
             cb(res);
         });
-    }
+    },
+
+    delete: function (columnName, columnValue, cb) {
+        orm.delete("burgers", columnName, columnValue, function(res) {
+          cb(res);
+        });
+      }
 };
 
 module.exports = burger;

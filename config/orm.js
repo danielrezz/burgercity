@@ -68,7 +68,20 @@ let orm = {
             }
             cb(result);
         });
-    }
+    },
+
+    delete: function(tableName, columnName, columnValue, cb) {
+        let SQL_STATEMENT = `DELETE FROM ??
+                           WHERE ??=?`;
+    
+        connection.query(SQL_STATEMENT, [tableName, columnName, columnValue], function(err, result) {
+          if (err) {
+            throw err;
+          }
+    
+          cb(result);
+        });
+      }
 };
 
 module.exports = orm;
